@@ -1,7 +1,3 @@
-This `README.md` is designed to look professional on GitHub, featuring clear instructions, prerequisites, and a breakdown of both the setup and teardown scripts.
-
----
-
 # WiFi Hotspot Manager
 
 A pair of lightweight Bash scripts to quickly turn your Linux machine into a wireless access point using `NetworkManager`. This tool dynamically detects your wireless hardware and allows for both **Open** and **WPA2-Encrypted** connections.
