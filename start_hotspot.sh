@@ -2,7 +2,7 @@
 clear
 
 # --- Adapter Selection ---
-echo -e "\e[38;5;208mSelect Wireless Adapters:\e[0m"
+echo -e "\e[38;5;208mSelect Wireless Adapter:\e[0m"
 
 # Get Wi-Fi interfaces, filtering out the virtual p2p-dev handles
 AVAILABLE_INTERFACES=$(nmcli device status | grep "wifi" | grep -v "p2p-dev" | awk '{print $1}')
