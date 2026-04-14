@@ -68,12 +68,12 @@ echo -e "\e[38;5;208mInitializing Connection Profile for '$HOTSPOT_SSID'...\e[0m
 
 if [ "$SECURE_CHOICE" == "WPA2" ]; then
     # Secure Path
-    sudo nmcli connection add type wifi ifname "$WIFI_IFACE" con-name "$CON_NAME" autoconnect yes ssid "$HOTSPOT_SSID" mode ap \
+    sudo nmcli connection add type wifi ifname "$WIFI_IFACE" con-name "$CON_NAME" autoconnect no ssid "$HOTSPOT_SSID" mode ap \
     wifi-sec.key-mgmt wpa-psk \
     wifi-sec.psk "$HOTSPOT_PW"
 else
     # Open Path
-    sudo nmcli connection add type wifi ifname "$WIFI_IFACE" con-name "$CON_NAME" autoconnect yes ssid "$HOTSPOT_SSID" mode ap
+    sudo nmcli connection add type wifi ifname "$WIFI_IFACE" con-name "$CON_NAME" autoconnect no ssid "$HOTSPOT_SSID" mode ap
 fi
 
 # --- Final Configuration ---
