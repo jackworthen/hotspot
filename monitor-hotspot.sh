@@ -1,5 +1,11 @@
 #!/bin/bash 
 
+# --- Self-Elevation Logic ---
+if [[ $EUID -ne 0 ]]; then
+    echo -e "\e[31mPrivileged access required.\e[0m"
+    exec sudo "$0" "$@"
+fi
+
 # --- Configuration --- 
 INTERFACE=$(nmcli -t -f DEVICE,TYPE device status | grep ":wifi" | cut -d: -f1 | head -n1) 
 
@@ -13,7 +19,7 @@ CONN_NAME=$(nmcli -t -f DEVICE,NAME connection show --active | grep "^$INTERFACE
 SSID=$(nmcli -t -f 802-11-wireless.ssid connection show "$CONN_NAME" | cut -d: -f2)
 SEC_TYPE=$(nmcli -t -f 802-11-wireless-security.key-mgmt connection show "$CONN_NAME" | cut -d: -f2)
 
-# New: Fetch Channel and Frequency Info
+# Fetch Channel and Frequency Info
 CHAN_INFO=$(iw dev "$INTERFACE" info)
 CHANNEL=$(echo "$CHAN_INFO" | grep "channel" | awk '{print $2}')
 FREQ_MHZ=$(echo "$CHAN_INFO" | grep "channel" | awk '{print $3}' | tr -d '(|MHz,')
@@ -51,7 +57,8 @@ human_readable() {
 trap "clear; exit" INT 
 
 while true; do 
-    STATIONS=$(sudo iw dev "$INTERFACE" station dump | grep "Station" | awk '{print $2}' | sort -u) 
+    # Removed sudo from the loop commands as script is now running as root
+    STATIONS=$(iw dev "$INTERFACE" station dump | grep "Station" | awk '{print $2}' | sort -u) 
     
     if [ -z "$STATIONS" ]; then 
         COUNT=0 
@@ -61,7 +68,6 @@ while true; do
 
     clear 
     echo -e "\e[38;5;208m==============================================================================\e[0m" 
-    # Updated Banner with Band and Channel
     echo -e "\e[38;5;208m SSID: $SSID ($SECURITY) | Band: $BAND (Ch: $CHANNEL) | Devices: $COUNT \e[0m" 
     echo -e "\e[38;5;208m==============================================================================\e[0m" 
     echo -e "Interface: $INTERFACE | Updated: $(date +%H:%M:%S) -- Press [Ctrl+C] to exit\n" 
@@ -77,7 +83,7 @@ while true; do
                 IP=$(ip neighbor show dev "$INTERFACE" | grep -i "$mac" | awk '{print $1}' | head -n1) 
                 [ -z "$IP" ] && IP="Pending..." 
 
-                STATION_INFO=$(sudo iw dev "$INTERFACE" station get "$mac")
+                STATION_INFO=$(iw dev "$INTERFACE" station get "$mac")
                 
                 SIGNAL=$(echo "$STATION_INFO" | grep "signal:" | awk '{print $2}' | head -n1)
                 [ -z "$SIGNAL" ] && SIGNAL="N/A" 
