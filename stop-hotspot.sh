@@ -6,6 +6,7 @@ if [[ $EUID -ne 0 ]]; then
     echo -e "\e[31mPrivileged access required.\e[0m"
     exec sudo "$0" "$@"
 fi
+clear
 
 CON_NAME="OpenHotspot"
 PREV_REG_FILE="/tmp/previous_reg_domain"
