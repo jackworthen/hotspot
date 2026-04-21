@@ -2,6 +2,7 @@
 # 🚀 Features
 * **Regulatory Domain Control:** Sets your WiFi region (e.g., US, JP, DE) to unlock local frequencies and comply with regional transmission power limits.
 * **Dual-Band Support:** Easily toggle between **2.4 GHz** and **5 GHz** broadcasting.
+* **Randomize MAC Address** Sets a randome MAC address for the selected wireless adapter.
 * **Frequency & Channel Management:** * Support for forced non-DFS channels in the 5 GHz band (36, 40, 149, etc.) to ensure better compatibility with clients.
     * Real-time detection of the current operating channel and frequency in the monitor.
 * **Auto-Detection:** Lists only valid WiFi adapters (filtering out virtual P2P interfaces).
