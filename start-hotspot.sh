@@ -18,7 +18,7 @@ cat << "EOF"
  | |__| | |  | | | |  | (___ | |__) | |  | | | |   
  |  __  | |  | | | |   \___ \|  ___/| |  | | | |   
  | |  | | |__| | | |   ____) | |    | |__| | | |   
- |_|  |_|\____/  |_|  |_____/|_|     \____/  |_|                                                   
+ |_|  |_|\____/  |_|  |_____/|_|     \____/  |_|                                                                       
 EOF
 echo -e "${NC}" 
 echo "Toolkit v1.3"
@@ -77,9 +77,8 @@ select BAND_CHOICE in "${BAND_OPTIONS[@]}"; do
             HOTSPOT_BAND="a"
             echo -en "\e[33mForce a specific non-DFS channel? (y/n): \e[0m"
             read -n 1 FORCE_DFS
-           # echo ""
             if [[ "$FORCE_DFS" == "y" || "$FORCE_DFS" == "Y" ]]; then
-                echo -e "\e[38;5;208mSelect common non-DFS Channel:\e[0m"
+                echo -e "\n\e[38;5;208mSelect common non-DFS Channel:\e[0m"
                 CHAN_OPTIONS=("36" "40" "44" "48" "149" "153" "157" "161")
                 select CHAN_CHOICE in "${CHAN_OPTIONS[@]}"; do
                     if [ -n "$CHAN_CHOICE" ]; then
@@ -106,8 +105,18 @@ select SECURE_CHOICE in "Open" "WPA2"; do
     else break; fi
 done
 
-echo
-read -p "Enter SSID: " HOTSPOT_SSID
+echo 
+# --- SSID Validation Loop ---
+while true; do
+    echo -ne "\e[38;5;208mEnter SSID: \e[0m"
+    read HOTSPOT_SSID
+    if [[ -n "$HOTSPOT_SSID" ]]; then
+        break
+    else
+        echo -e "\e[31mError: SSID cannot be empty. Please try again.\e[0m"
+    fi
+done
+
 CON_NAME="OpenHotspot"
 
 # --- Cleanup & Rebuild ---
