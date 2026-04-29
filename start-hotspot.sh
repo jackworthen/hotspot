@@ -119,7 +119,6 @@ if [ "$LOADED_FROM_CONFIG" = false ]; then
                 HOTSPOT_BAND="a"
                 echo -en "\e[33mForce a specific non-DFS channel? (y/n): \e[0m"
                 read -n 1 FORCE_DFS
-                echo 
                 if [[ "$FORCE_DFS" =~ ^[Yy]$ ]]; then
                     echo -e "\n\e[38;5;208mSelect common non-DFS Channel:\e[0m"
                     CHAN_OPTIONS=("36" "40" "44" "48" "149" "153" "157" "161")
@@ -129,6 +128,8 @@ if [ "$LOADED_FROM_CONFIG" = false ]; then
                             break
                         fi
                     done
+                else
+                    echo # Just a single newline if they say 'n'
                 fi
                 break ;;
             *) echo "Invalid selection." ;;
@@ -136,7 +137,7 @@ if [ "$LOADED_FROM_CONFIG" = false ]; then
     done
 
     # --- Connection Type Selection ---
-    echo -e "\n\e[38;5;208mConnection Type:\e[0m"
+    echo -e "\e[38;5;208mConnection Type:\e[0m"
     select SECURE_CHOICE in "Open" "WPA2"; do
         if [ "$SECURE_CHOICE" == "WPA2" ]; then
             while true; do
