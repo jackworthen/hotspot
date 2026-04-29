@@ -8,6 +8,7 @@
 * **Auto-Detection:** Lists only valid WiFi adapters (filtering out virtual P2P interfaces).
 * **Real-Time Monitoring:** Track connected devices, their IP addresses, signal strength, and live data usage (RX/TX).
 * **Validation:** Ensures WPA2 passwords meet the minimum 8-character requirement.
+* **Save Configuration:** Save hotspot configuration for quick and easy reuse.
 * **Clean Management:** Automatically wipes old connection profiles to prevent IP conflicts and restores your original regulatory domain upon exit.
 * **Graceful Teardown:** Dedicated script to stop the hotspot and restore original system network settings.
 
