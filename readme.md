@@ -80,7 +80,7 @@ A cleanup utility that:
 * **Permissions:** Since these scripts modify system network interfaces and query hardware stats, `sudo` is required for execution.
 
 # 📜 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under GNU GENERAL PUBLIC LICENSE - see the LICENSE file for details.
 
 
 *Developed by Jack Worthen [@jackworthen](https://github.com/jackworthen)*
